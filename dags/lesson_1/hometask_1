@@ -1,0 +1,12 @@
+Задание после урока 1
+
+Исправить даг lesson_1_generate_daily_data_v1,
+чтобы данные сохранялись в папку data/calls
+
+Исправить даг lesson_1_aggregate_daily_data,
+чтобы результат аггрегации сохранялся в отдельные
+csv файлы в папке data/calls_by_region
+
+Дополнить даг lesson_1_aggregate_daily_data
+таской duplicate_json, транформирующей результат аггрегации
+в csv в формат json и сохраняющей результат в data/calls_by_regions_json

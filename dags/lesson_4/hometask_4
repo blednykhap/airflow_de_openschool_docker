@@ -1,0 +1,25 @@
+Написать оператор, который будет считать среднюю длительность звонка по региону:
+AvgDurationByRegionOperator(region='MSK', event_date='{{ ds }}', data_path=' {{ var.value.regions_random_path }} ')
+Оператор должен выводить в xcom переменную avg_call_duration типа int и переменную region типа строка.
+
+Запустить этот оператор для данных в папке region_random,
+определяя по наличию данных по региону за определенную дату число mapped тасок оператора
+AvgDurationByRegionOperator.
+
+Результат записать в таблицу postgre с колонками event_date, region, ang_call_duration.
+Для этого сделать оператор
+AvgDurationByRegionToPostgresOperator(values=avg_by_region_task.output)
+который соберёт все средние значения на выходе mapped тасок и выполнит insert запрос в базу с использованием PostgresHook
+
+class AvgDurationByRegionToPostgresOperator(BaseOperator):
+
+    def __init__(self, values, **kwargs,) -> None:
+        super().__init__(**kwargs)
+        ...
+    def execute(self, context):
+        # Создание Хука
+        self.hook = PostgresHook(postgres_conn_id=self.postgres_conn_id, schema=self.database)
+        # Вызов метода
+        self.hook.run(self.sql, self.autocommit, parameters=self.parameters)
+
+

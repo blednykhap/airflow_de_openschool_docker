@@ -1,0 +1,4 @@
+Добавить коннекшен в спарк
+conn_id: spark_local
+host: spark://spark-master
+port: 7077
